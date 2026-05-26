@@ -7,14 +7,13 @@
     <style>
       :root {
         color-scheme: light;
-        --ink: #161411;
-        --muted: #706b62;
-        --paper: #f7f2e8;
-        --panel: #fffaf0;
-        --line: #d9cdb9;
+        --ink: #151515;
+        --muted: #6d6d6d;
+        --button: #ffffff;
+        --line: #dadada;
         --a: #0d7f78;
         --b: #d04f2f;
-        --shadow: 0 22px 80px rgba(44, 32, 17, 0.14);
+        --shadow: 4px 4px 0px rgba(32, 32, 32, 0.2);
       }
 
       * {
@@ -23,28 +22,6 @@
 
       body {
         margin: 0;
-        min-height: 100vh;
-        background:
-          linear-gradient(90deg, rgba(22, 20, 17, 0.035) 1px, transparent 1px),
-          linear-gradient(rgba(22, 20, 17, 0.035) 1px, transparent 1px),
-          radial-gradient(
-            circle at 84% 9%,
-            rgba(208, 79, 47, 0.13),
-            transparent 28rem
-          ),
-          radial-gradient(
-            circle at 11% 18%,
-            rgba(13, 127, 120, 0.12),
-            transparent 26rem
-          ),
-          var(--paper);
-        background-size:
-          24px 24px,
-          24px 24px,
-          auto,
-          auto,
-          auto;
-        color: var(--ink);
         font-family: sans-serif;
       }
 
@@ -63,7 +40,7 @@
         width: 100%;
         min-height: 44px;
         border: 1px solid var(--ink);
-        background: var(--panel);
+        background: var(--button);
         box-shadow: 4px 4px 0 var(--ink);
         cursor: pointer;
         font-family: sans-serif;
@@ -88,7 +65,7 @@
       .controls,
       .stage {
         border: 1px solid var(--line);
-        background: rgba(255, 250, 240, 0.86);
+        background: rgba(255, 255, 255);
         box-shadow: var(--shadow);
       }
 
@@ -118,7 +95,6 @@
         font-family: sans-serif;
         font-weight: 900;
         letter-spacing: 0;
-        /* text-transform: uppercase; */
       }
 
       .control label {
@@ -201,8 +177,7 @@
 
       .bar {
         height: 12px;
-        border: 1px solid var(--ink);
-        background: rgba(22, 20, 17, 0.06);
+        background: rgba(20, 20, 20, 0.1);
       }
 
       .count-row strong {
@@ -227,14 +202,6 @@
         width: 100%;
         height: 560px;
         min-height: 560px;
-        border: 1px solid var(--line);
-        background:
-          linear-gradient(rgba(255, 250, 240, 0.72), rgba(255, 250, 240, 0.72)),
-          repeating-linear-gradient(
-            135deg,
-            transparent 0 10px,
-            rgba(22, 20, 17, 0.035) 10px 11px
-          );
       }
 
       .legend {
@@ -496,20 +463,17 @@
         context.setTransform(ratio, 0, 0, ratio, 0, 0);
         context.clearRect(0, 0, width, height);
 
-        const padding = 12;
         const gap = 2;
-        const innerWidth = width - padding * 2;
-        const innerHeight = height - padding * 2;
         const columns = Math.max(
           1,
-          Math.ceil(Math.sqrt((layoutCount * innerWidth) / innerHeight)),
+          Math.ceil(Math.sqrt((layoutCount * width) / height)),
         );
         const rows = Math.max(1, Math.ceil(layoutCount / columns));
         const cell = Math.max(
           2,
           Math.min(
-            (innerWidth - gap * (columns - 1)) / columns,
-            (innerHeight - gap * (rows - 1)) / rows,
+            (width - gap * (columns - 1)) / columns,
+            (height - gap * (rows - 1)) / rows,
           ),
         );
         const colors = {
@@ -520,9 +484,6 @@
             .getPropertyValue("--b")
             .trim(),
         };
-
-        context.strokeStyle = "rgba(22, 20, 17, 0.5)";
-        context.lineWidth = Math.max(0.5, Math.min(1, cell / 8));
 
         const sortedPeople = shouldSort
           ? [...people].sort((left, right) => {
@@ -535,8 +496,8 @@
 
         for (let index = 0; index < sortedPeople.length; index += 1) {
           const person = sortedPeople[index];
-          const x = padding + (index % columns) * (cell + gap);
-          const y = padding + Math.floor(index / columns) * (cell + gap);
+          const x = (index % columns) * (cell + gap);
+          const y = Math.floor(index / columns) * (cell + gap);
 
           context.fillStyle = colors[person.step1];
           context.beginPath();
@@ -546,7 +507,6 @@
             context.rect(x, y, cell, cell);
           }
           context.fill();
-          context.stroke();
         }
       };
 
