@@ -27,12 +27,25 @@
         background:
           linear-gradient(90deg, rgba(22, 20, 17, 0.035) 1px, transparent 1px),
           linear-gradient(rgba(22, 20, 17, 0.035) 1px, transparent 1px),
-          radial-gradient(circle at 84% 9%, rgba(208, 79, 47, 0.13), transparent 28rem),
-          radial-gradient(circle at 11% 18%, rgba(13, 127, 120, 0.12), transparent 26rem),
+          radial-gradient(
+            circle at 84% 9%,
+            rgba(208, 79, 47, 0.13),
+            transparent 28rem
+          ),
+          radial-gradient(
+            circle at 11% 18%,
+            rgba(13, 127, 120, 0.12),
+            transparent 26rem
+          ),
           var(--paper);
-        background-size: 24px 24px, 24px 24px, auto, auto, auto;
+        background-size:
+          24px 24px,
+          24px 24px,
+          auto,
+          auto,
+          auto;
         color: var(--ink);
-        font-family: ui-serif, Georgia, Cambria, "Times New Roman", serif;
+        font-family: sans-serif;
       }
 
       button,
@@ -53,10 +66,9 @@
         background: var(--panel);
         box-shadow: 4px 4px 0 var(--ink);
         cursor: pointer;
-        font-family: "Arial Narrow", "Aptos Narrow", Impact, sans-serif;
+        font-family: sans-serif;
         font-weight: 900;
         letter-spacing: 0;
-        text-transform: uppercase;
         transition:
           transform 150ms ease,
           box-shadow 150ms ease;
@@ -103,10 +115,10 @@
 
       .control label,
       .stage-title {
-        font-family: "Arial Narrow", "Aptos Narrow", Impact, sans-serif;
+        font-family: sans-serif;
         font-weight: 900;
         letter-spacing: 0;
-        text-transform: uppercase;
+        /* text-transform: uppercase; */
       }
 
       .control label {
@@ -119,6 +131,20 @@
 
       .control span {
         color: var(--muted);
+      }
+
+      .toggle {
+        display: flex;
+        justify-content: start !important;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+      }
+
+      .toggle input {
+        width: 16px;
+        height: 16px;
+        accent-color: var(--a);
       }
 
       input[type="range"] {
@@ -166,9 +192,9 @@
 
       .count-row {
         display: grid;
-        grid-template-columns: 58px 1fr 56px;
+        grid-template-columns: max-content minmax(0, 1fr) max-content;
         align-items: center;
-        gap: 8px;
+        gap: 14px;
         min-height: 24px;
         font-size: 14px;
       }
@@ -177,6 +203,11 @@
         height: 12px;
         border: 1px solid var(--ink);
         background: rgba(22, 20, 17, 0.06);
+      }
+
+      .count-row strong {
+        min-width: 4ch;
+        text-align: right;
       }
 
       .bar-fill {
@@ -192,38 +223,18 @@
       }
 
       .people-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(8px, 1fr));
-        align-content: start;
-        gap: 4px;
-        min-height: 348px;
-        padding: 12px;
+        display: block;
+        width: 100%;
+        height: 560px;
+        min-height: 560px;
         border: 1px solid var(--line);
         background:
           linear-gradient(rgba(255, 250, 240, 0.72), rgba(255, 250, 240, 0.72)),
-          repeating-linear-gradient(135deg, transparent 0 10px, rgba(22, 20, 17, 0.035) 10px 11px);
-      }
-
-      .person {
-        aspect-ratio: 1;
-        min-width: 7px;
-        border: 1px solid rgba(22, 20, 17, 0.5);
-      }
-
-      .person.step-a {
-        background: var(--a);
-      }
-
-      .person.step-b {
-        background: var(--b);
-      }
-
-      .person.variant-a {
-        border-radius: 0;
-      }
-
-      .person.variant-b {
-        border-radius: 50%;
+          repeating-linear-gradient(
+            135deg,
+            transparent 0 10px,
+            rgba(22, 20, 17, 0.035) 10px 11px
+          );
       }
 
       .legend {
@@ -262,7 +273,8 @@
         }
 
         .people-grid {
-          min-height: 220px;
+          height: 360px;
+          min-height: 360px;
         }
       }
     </style>
@@ -272,52 +284,116 @@
       <section class="board">
         <aside class="controls" aria-label="Simulation controls">
           <div class="control">
-            <label for="population">Population <span id="populationValue">1000</span></label>
-            <input id="population" type="range" min="100" max="2400" step="100" value="1000" />
+            <label for="population"
+              >Population <span id="populationValue">1000</span></label
+            >
+            <input
+              id="population"
+              type="range"
+              min="100"
+              max="2400"
+              step="100"
+              value="1000"
+            />
           </div>
           <div class="control">
-            <label for="step1ChanceA">Step 1 A split <span id="step1ChanceAValue">50%</span></label>
-            <input id="step1ChanceA" type="range" min="0" max="100" value="50" />
+            <label for="step1ChanceA"
+              >Step 1 A split <span id="step1ChanceAValue">50%</span></label
+            >
+            <input
+              id="step1ChanceA"
+              type="range"
+              min="0"
+              max="100"
+              value="50"
+            />
           </div>
           <div class="control">
-            <label for="step2ChanceA">Step 2 A split <span id="step2ChanceAValue">50%</span></label>
-            <input id="step2ChanceA" type="range" min="0" max="100" value="50" />
+            <label for="step2ChanceA"
+              >Step 2 A split <span id="step2ChanceAValue">50%</span></label
+            >
+            <input
+              id="step2ChanceA"
+              type="range"
+              min="0"
+              max="100"
+              value="50"
+            />
           </div>
           <div class="control">
-            <label for="passA">Step 1 A pass <span id="passAValue">90%</span></label>
+            <label for="passA"
+              >Step 1 A pass <span id="passAValue">90%</span></label
+            >
             <input id="passA" type="range" min="0" max="100" value="90" />
           </div>
           <div class="control">
-            <label for="passB">Step 1 B pass <span id="passBValue">20%</span></label>
+            <label for="passB"
+              >Step 1 B pass <span id="passBValue">20%</span></label
+            >
             <input id="passB" type="range" min="0" max="100" value="20" />
+          </div>
+          <div class="control">
+            <label class="toggle" for="sortPeople">
+              <input id="sortPeople" type="checkbox" />
+              Sort visualization
+            </label>
           </div>
           <div class="control">
             <button class="rerun-button" id="rerun">Restart simulation</button>
           </div>
           <div class="legend">
-            <span class="legend-item"><span class="swatch" style="background: var(--a)"></span>Step 1 variant A</span>
-            <span class="legend-item"><span class="swatch" style="background: var(--b)"></span>Step 1 variant B</span>
-            <span class="legend-item"><span class="swatch"></span>Step 2 variant A</span>
-            <span class="legend-item"><span class="swatch" style="border-radius: 50%"></span>Step 2 variant B</span>
+            <span class="legend-item"
+              ><span class="swatch" style="background: var(--a)"></span>Step 1
+              variant A</span
+            >
+            <span class="legend-item"
+              ><span class="swatch" style="background: var(--b)"></span>Step 1
+              variant B</span
+            >
+            <span class="legend-item"
+              ><span class="swatch"></span>Step 2 variant A</span
+            >
+            <span class="legend-item"
+              ><span class="swatch" style="border-radius: 50%"></span>Step 2
+              variant B</span
+            >
           </div>
         </aside>
 
         <section class="main">
           <section class="stages" aria-label="Simulation stages">
             <article class="stage">
-              <div class="stage-title">Initial <small id="initialTotal">0 users</small></div>
+              <div class="stage-title">
+                Initial population <small id="initialTotal">0 users</small>
+              </div>
               <div class="counts" id="initialCounts"></div>
-              <div class="people-grid" id="initialGrid" aria-label="Initial people grid"></div>
+              <canvas
+                class="people-grid"
+                id="initialGrid"
+                aria-label="Initial people grid"
+              ></canvas>
             </article>
             <article class="stage">
-              <div class="stage-title">Passed <small id="passedTotal">0 users</small></div>
+              <div class="stage-title">
+                Passed after step 1 <small id="passedTotal">0 users</small>
+              </div>
               <div class="counts" id="passedCounts"></div>
-              <div class="people-grid" id="passedGrid" aria-label="Passed people grid"></div>
+              <canvas
+                class="people-grid"
+                id="passedGrid"
+                aria-label="Passed people grid"
+              ></canvas>
             </article>
             <article class="stage">
-              <div class="stage-title">Dropped <small id="droppedTotal">0 users</small></div>
+              <div class="stage-title">
+                Dropped after step 1 <small id="droppedTotal">0 users</small>
+              </div>
               <div class="counts" id="droppedCounts"></div>
-              <div class="people-grid" id="droppedGrid" aria-label="Dropped people grid"></div>
+              <canvas
+                class="people-grid"
+                id="droppedGrid"
+                aria-label="Dropped people grid"
+              ></canvas>
             </article>
           </section>
         </section>
@@ -331,6 +407,7 @@
         step2ChanceA: document.querySelector("#step2ChanceA"),
         passA: document.querySelector("#passA"),
         passB: document.querySelector("#passB"),
+        sortPeople: document.querySelector("#sortPeople"),
       };
 
       const output = {
@@ -351,6 +428,11 @@
       };
 
       const percent = (value) => `${Math.round(value * 100)}%`;
+      const canvases = [
+        output.initialGrid,
+        output.passedGrid,
+        output.droppedGrid,
+      ];
       let seed = "42";
 
       const seededRandom = (seedText) => {
@@ -397,12 +479,75 @@
           .join("");
       };
 
-      const renderPeople = (element, people, dropped = false) => {
-        const limit = 1200;
-        element.innerHTML = people
-          .slice(0, limit)
-          .map((person) => `<span class="person step-${person.step1.toLowerCase()} variant-${person.step2.toLowerCase()}${dropped ? " dropped" : ""}" title="Step 1 ${person.step1}, Step 2 ${person.step2}"></span>`)
-          .join("");
+      const renderPeople = (canvas, people, layoutCount, shouldSort) => {
+        const rect = canvas.getBoundingClientRect();
+        const ratio = window.devicePixelRatio || 1;
+        const width = Math.max(1, Math.floor(rect.width));
+        const height = Math.max(1, Math.floor(rect.height));
+        const scaledWidth = Math.floor(width * ratio);
+        const scaledHeight = Math.floor(height * ratio);
+
+        if (canvas.width !== scaledWidth || canvas.height !== scaledHeight) {
+          canvas.width = scaledWidth;
+          canvas.height = scaledHeight;
+        }
+
+        const context = canvas.getContext("2d");
+        context.setTransform(ratio, 0, 0, ratio, 0, 0);
+        context.clearRect(0, 0, width, height);
+
+        const padding = 12;
+        const gap = 2;
+        const innerWidth = width - padding * 2;
+        const innerHeight = height - padding * 2;
+        const columns = Math.max(
+          1,
+          Math.ceil(Math.sqrt((layoutCount * innerWidth) / innerHeight)),
+        );
+        const rows = Math.max(1, Math.ceil(layoutCount / columns));
+        const cell = Math.max(
+          2,
+          Math.min(
+            (innerWidth - gap * (columns - 1)) / columns,
+            (innerHeight - gap * (rows - 1)) / rows,
+          ),
+        );
+        const colors = {
+          A: getComputedStyle(document.documentElement)
+            .getPropertyValue("--a")
+            .trim(),
+          B: getComputedStyle(document.documentElement)
+            .getPropertyValue("--b")
+            .trim(),
+        };
+
+        context.strokeStyle = "rgba(22, 20, 17, 0.5)";
+        context.lineWidth = Math.max(0.5, Math.min(1, cell / 8));
+
+        const sortedPeople = shouldSort
+          ? [...people].sort((left, right) => {
+              if (left.step2 !== right.step2) {
+                return left.step2.localeCompare(right.step2);
+              }
+              return left.step1.localeCompare(right.step1);
+            })
+          : people;
+
+        for (let index = 0; index < sortedPeople.length; index += 1) {
+          const person = sortedPeople[index];
+          const x = padding + (index % columns) * (cell + gap);
+          const y = padding + Math.floor(index / columns) * (cell + gap);
+
+          context.fillStyle = colors[person.step1];
+          context.beginPath();
+          if (person.step2 === "B") {
+            context.arc(x + cell / 2, y + cell / 2, cell / 2, 0, Math.PI * 2);
+          } else {
+            context.rect(x, y, cell, cell);
+          }
+          context.fill();
+          context.stroke();
+        }
       };
 
       const run = () => {
@@ -411,6 +556,7 @@
         const step2ChanceAOverB = Number(controls.step2ChanceA.value) / 100;
         const chanceToPassThroughStep1A = Number(controls.passA.value) / 100;
         const chanceToPassThroughStep1B = Number(controls.passB.value) / 100;
+        const shouldSortPeople = controls.sortPeople.checked;
         const random = seededRandom(seed);
         const choose = (chance) => random() < chance;
 
@@ -456,9 +602,24 @@
         renderCounts(output.initialCounts, initial, people.length);
         renderCounts(output.passedCounts, passed, goesToStep2.length);
         renderCounts(output.droppedCounts, dropped, droppedOnStep1.length);
-        renderPeople(output.initialGrid, people);
-        renderPeople(output.passedGrid, goesToStep2);
-        renderPeople(output.droppedGrid, droppedOnStep1, true);
+        renderPeople(
+          output.initialGrid,
+          people,
+          people.length,
+          shouldSortPeople,
+        );
+        renderPeople(
+          output.passedGrid,
+          goesToStep2,
+          people.length,
+          shouldSortPeople,
+        );
+        renderPeople(
+          output.droppedGrid,
+          droppedOnStep1,
+          people.length,
+          shouldSortPeople,
+        );
       };
 
       for (const control of Object.values(controls)) {
@@ -469,6 +630,16 @@
         seed = String(Math.floor(Math.random() * 1_000_000));
         run();
       });
+
+      const resizeObserver = new ResizeObserver(run);
+      for (const canvas of canvases) {
+        resizeObserver.observe(canvas);
+      }
+
+      matchMedia(
+        `(resolution: ${window.devicePixelRatio}dppx)`,
+      ).addEventListener("change", run, { once: true });
+      window.addEventListener("resize", run);
 
       run();
     </script>
