@@ -1,4 +1,4 @@
-const population = 1000;
+const population = 5000;
 const iterations = 1000;
 
 type Variant = {
@@ -11,20 +11,28 @@ type Step = Variant[];
 const steps: Step[] = [
     // Step 0
     [
-        { fraction: 0.5, passChance: 0.9 }, // Variant 0
-        { fraction: 0.5, passChance: 0.2 }, // Variant 1
+        { fraction: 0.5, passChance: 0.6 }, // Variant 0
+        { fraction: 0.5, passChance: 0.7 }, // Variant 1
     ],
     // Step 1
     [
         { fraction: 0.5, passChance: 0.6 }, // Variant 0
-        { fraction: 0.25, passChance: 0.8 }, // Variant 1
-        { fraction: 0.25, passChance: 0.4 }, // Variant 2
+        { fraction: 0.5, passChance: 0.7 }, // Variant 1
     ],
     // Step 2
     [
-        { fraction: 1 / 3, passChance: 0.7 }, // Variant 0
-        { fraction: 1 / 3, passChance: 0.6 }, // Variant 1
-        { fraction: 1 / 3, passChance: 0.5 }, // Variant 2
+        { fraction: 0.5, passChance: 0.6 }, // Variant 0
+        { fraction: 0.5, passChance: 0.7 }, // Variant 1
+    ],
+    // Step 3
+    [
+        { fraction: 0.5, passChance: 0.6 }, // Variant 0
+        { fraction: 0.5, passChance: 0.7 }, // Variant 1
+    ],
+    // Step 4
+    [
+        { fraction: 0.5, passChance: 0.6 }, // Variant 0
+        { fraction: 0.5, passChance: 0.7 }, // Variant 1
     ],
 ];
 
